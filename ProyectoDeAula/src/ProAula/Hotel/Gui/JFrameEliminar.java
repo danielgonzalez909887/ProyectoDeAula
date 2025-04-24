@@ -31,50 +31,10 @@ public class JFrameEliminar extends javax.swing.JFrame {
         listarReservas(); //Lo llamamos automaticamente al abrir la ventana
     }
     
-    /*private void listarReservas() {
-        try {
-            GetAllReservasQueryHandler handler = new GetAllReservasQueryHandler();
-            reservasList = handler.handler();          // ① guardamos la lista
-
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            model.setRowCount(0);
-
-            for (Reservas r : reservasList) {
-                List<Usuario> usuarios = r.getUsuarios();
-                if (usuarios != null && !usuarios.isEmpty()) {
-                    for (Usuario u : usuarios) {
-                        model.addRow(new Object[]{
-                            // Sólo las 8 columnas visibles, sin ID
-                            r.getFechaReserva(),
-                            r.getFechaLlegada(),
-                            r.getFechaSalida(),
-                            r.getHuespedes(),
-                            r.getHabitaciones(),
-                            u.getNombres(),
-                            u.getApellidos(),
-                            u.getIdentificacion()
-                        });
-                    }
-                } else {
-                    model.addRow(new Object[]{
-                        r.getFechaReserva(),
-                        r.getFechaLlegada(),
-                        r.getFechaSalida(),
-                        r.getHuespedes(),
-                        r.getHabitaciones(),
-                        "N/A","N/A","N/A"
-                    });
-                }
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error al listar reservas: " + ex.getMessage());
-        }
-    }*/
-    
     private void listarReservas() {
         try {
             GetAllReservasQueryHandler handler = new GetAllReservasQueryHandler();
-            reservasList = handler.handler(); // ① guardamos la lista
+            reservasList = handler.handler();
 
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
@@ -84,7 +44,7 @@ public class JFrameEliminar extends javax.swing.JFrame {
                 if (usuarios != null && !usuarios.isEmpty()) {
                     for (Usuario u : usuarios) {
                         model.addRow(new Object[]{
-                            r.getId(),                      // ✅ ID como primera columna (oculta)
+                            r.getId(),
                             r.getFechaReserva(),
                             r.getFechaLlegada(),
                             r.getFechaSalida(),
@@ -97,7 +57,7 @@ public class JFrameEliminar extends javax.swing.JFrame {
                     }
                 } else {
                     model.addRow(new Object[]{
-                        r.getId(),                        // ✅ También aquí
+                        r.getId(),
                         r.getFechaReserva(),
                         r.getFechaLlegada(),
                         r.getFechaSalida(),
@@ -108,7 +68,6 @@ public class JFrameEliminar extends javax.swing.JFrame {
                 }
             }
 
-            // ✅ Ocultar visualmente la columna ID
             jTable1.getColumnModel().getColumn(0).setMinWidth(0);
             jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
             jTable1.getColumnModel().getColumn(0).setWidth(0);
@@ -245,7 +204,6 @@ public class JFrameEliminar extends javax.swing.JFrame {
             return;
         }
 
-        // Obtenemos el ID de la reserva desde el modelo de la tabla
         int idReserva = Integer.parseInt(jTable1.getModel().getValueAt(filaSeleccionada, 0).toString());
 
         DeleteReservaCommand command = new DeleteReservaCommand(idReserva);
@@ -253,7 +211,7 @@ public class JFrameEliminar extends javax.swing.JFrame {
         handler.handler(command);
 
         JOptionPane.showMessageDialog(this, "Reserva eliminada correctamente.");
-        listarReservas(); // Refrescamos la tabla
+        listarReservas();
 
     } catch (Exception ex) {
         JOptionPane.showMessageDialog(this, "Error al eliminar la reserva: " + ex.getMessage());
@@ -261,72 +219,29 @@ public class JFrameEliminar extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        /*int fila = jTable1.getSelectedRow();
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Seleccione una reserva para editar.");
-            return;
-        }
-
-        //Recuperamos el objeto Reservas
-        Reservas reserva = reservasList.get(fila);
-
-        //Obtenemos sus datos
-        String fechaRes   = reserva.getFechaReserva().toString();
-        String fechaLlega = reserva.getFechaLlegada().toString();
-        String fechaSali  = reserva.getFechaSalida().toString();
-        int huespedes     = reserva.getHuespedes();
-        int habitaciones  = reserva.getHabitaciones();
-
-        //Para simplificar, si hay varios usuarios, tomamos el primero
-        Usuario u = reserva.getUsuarios().isEmpty()
-                    ? new Usuario("", "", "")
-                    : reserva.getUsuarios().get(0);
-
-        //Preparamos la ventana de edicion
-        JFrameEditar ventanaEditar = new JFrameEditar();
-        ventanaEditar.setDatosReserva(
-            fechaRes,
-            fechaLlega,
-            fechaSali,
-            huespedes,
-            habitaciones,
-            u.getNombres(),
-            u.getApellidos(),
-            u.getIdentificacion()
-        );
-        ventanaEditar.setReservaId(reserva.getId());
-        ventanaEditar.setLocationRelativeTo(this);
-        ventanaEditar.setVisible(true);*/
-        // 1) Obtiene la fila seleccionada
         int fila = jTable1.getSelectedRow();
             if (fila == -1) {
                 JOptionPane.showMessageDialog(this, "Seleccione una reserva para editar.");
                 return;
             }
 
-            // 2) Recupera el objeto Reservas
             Reservas reserva = reservasList.get(fila);
 
-            // 3) Crea el formateador ISO (YYYY-MM-DD)
+            //Creamos el formateador (YYYY-MM-DD)
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            // Si necesitas forzar zona horaria, descomenta:
-            // df.setTimeZone(TimeZone.getTimeZone("GMT-5"));
 
-            // 4) Formatea cada fecha
+            //Formateamos cada fecha
             String fechaRes   = df.format(reserva.getFechaReserva());
             String fechaLlega = df.format(reserva.getFechaLlegada());
             String fechaSali  = df.format(reserva.getFechaSalida());
 
-            // 5) Resto de campos
             int huespedes    = reserva.getHuespedes();
             int habitaciones = reserva.getHabitaciones();
 
-            // 6) Toma el primer usuario (si existe)
             Usuario u = reserva.getUsuarios().isEmpty()
                         ? new Usuario("", "", "")
                         : reserva.getUsuarios().get(0);
 
-            // 7) Prepara y muestra la ventana de edición
             JFrameEditar ventanaEditar = new JFrameEditar();
             ventanaEditar.setDatosReserva(
                 fechaRes,

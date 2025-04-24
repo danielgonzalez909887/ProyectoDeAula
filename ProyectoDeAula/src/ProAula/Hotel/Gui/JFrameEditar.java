@@ -200,23 +200,20 @@ public class JFrameEditar extends javax.swing.JFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         try {
-            // ① Obtenemos y validamos las fechas en formato yyyy-MM-dd
             String fechaReservaStr = txtFechaReserva.getText().trim();
             String fechaLlegadaStr = txtFechaLlegada.getText().trim();
             String fechaSalidaStr  = txtFechaSalida.getText().trim();
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            sdf.setLenient(false); // Validación estricta
+            sdf.setLenient(false);
 
             Date fechaReserva = sdf.parse(fechaReservaStr);
             Date fechaLlegada = sdf.parse(fechaLlegadaStr);
             Date fechaSalida  = sdf.parse(fechaSalidaStr);
 
-            // ② Obtenemos valores numéricos
             int huespedes = (int) jSpinnerHuespedes.getValue();
             int habitaciones = (int) jSpinnerHabitaciones.getValue();
 
-            // ③ Obtenemos datos del usuario
             String nombres = txtNombres.getText().trim();
             String apellidos = txtApellidos.getText().trim();
             String identificacion = txtIdentificacion.getText().trim();
@@ -225,7 +222,6 @@ public class JFrameEditar extends javax.swing.JFrame {
             List<Usuario> usuarios = new ArrayList<>();
             usuarios.add(usuario);
 
-            // ④ Creamos el comando
             UpdateReservaCommand comando = new UpdateReservaCommand(
                 getReservaId(),
                 fechaReserva,
@@ -236,11 +232,9 @@ public class JFrameEditar extends javax.swing.JFrame {
                 usuarios
             );
 
-            // ⑤ Ejecutamos el handler
             UpdateReservaCommandHandler handler = new UpdateReservaCommandHandler();
             handler.handler(comando);
 
-            // ⑥ Mostramos mensaje y cerramos
             JOptionPane.showMessageDialog(this, "Reserva actualizada correctamente.");
             this.dispose();
 
