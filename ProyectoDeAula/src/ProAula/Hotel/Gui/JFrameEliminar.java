@@ -1,0 +1,395 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package ProAula.Hotel.Gui;
+
+import ProAula.Hotel.Business.Reservas.Command.DeleteReservaCommand;
+import ProAula.Hotel.Business.Reservas.Command.DeleteReservaCommandHandler;
+import ProAula.Hotel.Business.Reservas.Command.IDeleteReservaCommand;
+import ProAula.Hotel.Business.Reservas.Queries.GetAllReservasQueryHandler;
+import ProAula.Hotel.Domain.Model.Reservas;
+import ProAula.Hotel.Domain.Model.Usuario;
+import ProAula.Hotel.Gui.JFrameEditar;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+/**
+ *
+ * @author DANIEL
+ */
+public class JFrameEliminar extends javax.swing.JFrame {
+
+    /**
+     * Creates new form JFrameEdit
+     */
+    public JFrameEliminar() {
+        initComponents();
+        listarReservas(); //Lo llamamos automaticamente al abrir la ventana
+    }
+    
+    /*private void listarReservas() {
+        try {
+            GetAllReservasQueryHandler handler = new GetAllReservasQueryHandler();
+            reservasList = handler.handler();          // ① guardamos la lista
+
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+
+            for (Reservas r : reservasList) {
+                List<Usuario> usuarios = r.getUsuarios();
+                if (usuarios != null && !usuarios.isEmpty()) {
+                    for (Usuario u : usuarios) {
+                        model.addRow(new Object[]{
+                            // Sólo las 8 columnas visibles, sin ID
+                            r.getFechaReserva(),
+                            r.getFechaLlegada(),
+                            r.getFechaSalida(),
+                            r.getHuespedes(),
+                            r.getHabitaciones(),
+                            u.getNombres(),
+                            u.getApellidos(),
+                            u.getIdentificacion()
+                        });
+                    }
+                } else {
+                    model.addRow(new Object[]{
+                        r.getFechaReserva(),
+                        r.getFechaLlegada(),
+                        r.getFechaSalida(),
+                        r.getHuespedes(),
+                        r.getHabitaciones(),
+                        "N/A","N/A","N/A"
+                    });
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al listar reservas: " + ex.getMessage());
+        }
+    }*/
+    
+    private void listarReservas() {
+        try {
+            GetAllReservasQueryHandler handler = new GetAllReservasQueryHandler();
+            reservasList = handler.handler(); // ① guardamos la lista
+
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+
+            for (Reservas r : reservasList) {
+                List<Usuario> usuarios = r.getUsuarios();
+                if (usuarios != null && !usuarios.isEmpty()) {
+                    for (Usuario u : usuarios) {
+                        model.addRow(new Object[]{
+                            r.getId(),                      // ✅ ID como primera columna (oculta)
+                            r.getFechaReserva(),
+                            r.getFechaLlegada(),
+                            r.getFechaSalida(),
+                            r.getHuespedes(),
+                            r.getHabitaciones(),
+                            u.getNombres(),
+                            u.getApellidos(),
+                            u.getIdentificacion()
+                        });
+                    }
+                } else {
+                    model.addRow(new Object[]{
+                        r.getId(),                        // ✅ También aquí
+                        r.getFechaReserva(),
+                        r.getFechaLlegada(),
+                        r.getFechaSalida(),
+                        r.getHuespedes(),
+                        r.getHabitaciones(),
+                        "N/A", "N/A", "N/A"
+                    });
+                }
+            }
+
+            // ✅ Ocultar visualmente la columna ID
+            jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTable1.getColumnModel().getColumn(0).setWidth(0);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al listar reservas: " + ex.getMessage());
+        }
+    }
+    
+    //Guarda aqui la ultima lista obtenida de la "BD"
+    private List<Reservas> reservasList;
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButtonEditar = new javax.swing.JButton();
+        jButtonEliminar = new javax.swing.JButton();
+        MenuPrincipal = new javax.swing.JMenuBar();
+        jMenuPrincipal = new javax.swing.JMenu();
+        jMenuItemListar = new javax.swing.JMenuItem();
+        jMenuItemAgregar = new javax.swing.JMenuItem();
+        jMenuItemEditar = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemSalir = new javax.swing.JMenuItem();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Fecha Reserva", "Fecha llegada", "Fecha Salida", "Huespedes", "Habitaciones", "Nombres", "Apellidos", "Identificacion"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jButtonEditar.setBackground(new java.awt.Color(102, 255, 102));
+        jButtonEditar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButtonEditar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonEditar.setText("Editar");
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
+
+        jButtonEliminar.setBackground(new java.awt.Color(255, 51, 51));
+        jButtonEliminar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButtonEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
+
+        jMenuPrincipal.setText("Menu");
+
+        jMenuItemListar.setText("Listar");
+        jMenuPrincipal.add(jMenuItemListar);
+
+        jMenuItemAgregar.setText("Agregar");
+        jMenuPrincipal.add(jMenuItemAgregar);
+
+        jMenuItemEditar.setText("Editar / Eliminar");
+        jMenuPrincipal.add(jMenuItemEditar);
+        jMenuPrincipal.add(jSeparator1);
+
+        jMenuItemSalir.setText("Salir");
+        jMenuPrincipal.add(jMenuItemSalir);
+
+        MenuPrincipal.add(jMenuPrincipal);
+
+        setJMenuBar(MenuPrincipal);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(86, 86, 86)
+                .addComponent(jButtonEditar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonEliminar)
+                .addGap(91, 91, 91))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonEditar)
+                    .addComponent(jButtonEliminar))
+                .addGap(30, 30, 30))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        try {
+        int filaSeleccionada = jTable1.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione una reserva para eliminar.");
+            return;
+        }
+
+        int confirmacion = JOptionPane.showConfirmDialog(
+            this,
+            "¿Estás seguro de que deseas eliminar esta reserva?",
+            "Confirmar eliminación",
+            JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacion != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        // Obtenemos el ID de la reserva desde el modelo de la tabla
+        int idReserva = Integer.parseInt(jTable1.getModel().getValueAt(filaSeleccionada, 0).toString());
+
+        DeleteReservaCommand command = new DeleteReservaCommand(idReserva);
+        IDeleteReservaCommand handler = new DeleteReservaCommandHandler();
+        handler.handler(command);
+
+        JOptionPane.showMessageDialog(this, "Reserva eliminada correctamente.");
+        listarReservas(); // Refrescamos la tabla
+
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error al eliminar la reserva: " + ex.getMessage());
+    }
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        /*int fila = jTable1.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione una reserva para editar.");
+            return;
+        }
+
+        //Recuperamos el objeto Reservas
+        Reservas reserva = reservasList.get(fila);
+
+        //Obtenemos sus datos
+        String fechaRes   = reserva.getFechaReserva().toString();
+        String fechaLlega = reserva.getFechaLlegada().toString();
+        String fechaSali  = reserva.getFechaSalida().toString();
+        int huespedes     = reserva.getHuespedes();
+        int habitaciones  = reserva.getHabitaciones();
+
+        //Para simplificar, si hay varios usuarios, tomamos el primero
+        Usuario u = reserva.getUsuarios().isEmpty()
+                    ? new Usuario("", "", "")
+                    : reserva.getUsuarios().get(0);
+
+        //Preparamos la ventana de edicion
+        JFrameEditar ventanaEditar = new JFrameEditar();
+        ventanaEditar.setDatosReserva(
+            fechaRes,
+            fechaLlega,
+            fechaSali,
+            huespedes,
+            habitaciones,
+            u.getNombres(),
+            u.getApellidos(),
+            u.getIdentificacion()
+        );
+        ventanaEditar.setReservaId(reserva.getId());
+        ventanaEditar.setLocationRelativeTo(this);
+        ventanaEditar.setVisible(true);*/
+        // 1) Obtiene la fila seleccionada
+        int fila = jTable1.getSelectedRow();
+            if (fila == -1) {
+                JOptionPane.showMessageDialog(this, "Seleccione una reserva para editar.");
+                return;
+            }
+
+            // 2) Recupera el objeto Reservas
+            Reservas reserva = reservasList.get(fila);
+
+            // 3) Crea el formateador ISO (YYYY-MM-DD)
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            // Si necesitas forzar zona horaria, descomenta:
+            // df.setTimeZone(TimeZone.getTimeZone("GMT-5"));
+
+            // 4) Formatea cada fecha
+            String fechaRes   = df.format(reserva.getFechaReserva());
+            String fechaLlega = df.format(reserva.getFechaLlegada());
+            String fechaSali  = df.format(reserva.getFechaSalida());
+
+            // 5) Resto de campos
+            int huespedes    = reserva.getHuespedes();
+            int habitaciones = reserva.getHabitaciones();
+
+            // 6) Toma el primer usuario (si existe)
+            Usuario u = reserva.getUsuarios().isEmpty()
+                        ? new Usuario("", "", "")
+                        : reserva.getUsuarios().get(0);
+
+            // 7) Prepara y muestra la ventana de edición
+            JFrameEditar ventanaEditar = new JFrameEditar();
+            ventanaEditar.setDatosReserva(
+                fechaRes,
+                fechaLlega,
+                fechaSali,
+                huespedes,
+                habitaciones,
+                u.getNombres(),
+                u.getApellidos(),
+                u.getIdentificacion()
+            );
+            ventanaEditar.setReservaId(reserva.getId());
+            ventanaEditar.setLocationRelativeTo(this);
+            ventanaEditar.setVisible(true);
+    }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(JFrameEliminar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(JFrameEliminar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(JFrameEliminar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JFrameEliminar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new JFrameEliminar().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar MenuPrincipal;
+    private javax.swing.JButton jButtonEditar;
+    private javax.swing.JButton jButtonEliminar;
+    private javax.swing.JMenuItem jMenuItemAgregar;
+    private javax.swing.JMenuItem jMenuItemEditar;
+    private javax.swing.JMenuItem jMenuItemListar;
+    private javax.swing.JMenuItem jMenuItemSalir;
+    private javax.swing.JMenu jMenuPrincipal;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JTable jTable1;
+    // End of variables declaration//GEN-END:variables
+}
