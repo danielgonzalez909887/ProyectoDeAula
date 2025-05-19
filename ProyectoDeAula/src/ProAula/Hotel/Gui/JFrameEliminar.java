@@ -7,7 +7,7 @@ package ProAula.Hotel.Gui;
 import ProAula.Hotel.Business.Reservas.Command.DeleteReservaCommand;
 import ProAula.Hotel.Business.Reservas.Command.DeleteReservaCommandHandler;
 import ProAula.Hotel.Business.Reservas.Command.IDeleteReservaCommand;
-import ProAula.Hotel.Business.Reservas.Queries.GetAllReservasQueryHandler;
+import ProAula.Hotel.Business.Reservas.Queries.GetAll.GetAllReservasQueryHandler;
 import ProAula.Hotel.Domain.Model.Reservas;
 import ProAula.Hotel.Domain.Model.Usuario;
 import ProAula.Hotel.Gui.JFrameEditar;
@@ -31,7 +31,7 @@ public class JFrameEliminar extends javax.swing.JFrame {
         listarReservas(); //Lo llamamos automaticamente al abrir la ventana
     }
     
-    private void listarReservas() {
+    /*private void listarReservas() {
         try {
             GetAllReservasQueryHandler handler = new GetAllReservasQueryHandler();
             reservasList = handler.handler();
@@ -75,6 +75,60 @@ public class JFrameEliminar extends javax.swing.JFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error al listar reservas: " + ex.getMessage());
         }
+    }*/
+    
+    private void listarReservas() {
+        try {
+            GetAllReservasQueryHandler handler = new GetAllReservasQueryHandler();
+            reservasList = handler.handler();
+
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+
+            SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+
+            for (Reservas r : reservasList) {
+                // Formateamos cada fecha una sola vez
+                String fechaResFmt    = fmt.format(r.getFechaReserva());
+                String fechaLlegFmt   = fmt.format(r.getFechaLlegada());
+                String fechaSalidaFmt = fmt.format(r.getFechaSalida());
+
+                List<Usuario> usuarios = r.getUsuarios();
+                if (usuarios != null && !usuarios.isEmpty()) {
+                    for (Usuario u : usuarios) {
+                        model.addRow(new Object[]{
+                            r.getId(),
+                            fechaResFmt,
+                            fechaLlegFmt,
+                            fechaSalidaFmt,
+                            r.getHuespedes(),
+                            r.getHabitaciones(),
+                            u.getNombres(),
+                            u.getApellidos(),
+                            u.getIdentificacion()
+                        });
+                    }
+                } else {
+                    model.addRow(new Object[]{
+                        r.getId(),
+                        fechaResFmt,
+                        fechaLlegFmt,
+                        fechaSalidaFmt,
+                        r.getHuespedes(),
+                        r.getHabitaciones(),
+                        "N/A", "N/A", "N/A"
+                    });
+                }
+            }
+
+            // Ocultamos la columna ID
+            jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTable1.getColumnModel().getColumn(0).setWidth(0);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al listar reservas: " + ex.getMessage());
+        }
     }
     
     //Guarda aqui la ultima lista obtenida de la "BD"
@@ -93,13 +147,6 @@ public class JFrameEliminar extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButtonEditar = new javax.swing.JButton();
         jButtonEliminar = new javax.swing.JButton();
-        MenuPrincipal = new javax.swing.JMenuBar();
-        jMenuPrincipal = new javax.swing.JMenu();
-        jMenuItemListar = new javax.swing.JMenuItem();
-        jMenuItemAgregar = new javax.swing.JMenuItem();
-        jMenuItemEditar = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItemSalir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -136,25 +183,6 @@ public class JFrameEliminar extends javax.swing.JFrame {
             }
         });
 
-        jMenuPrincipal.setText("Menu");
-
-        jMenuItemListar.setText("Listar");
-        jMenuPrincipal.add(jMenuItemListar);
-
-        jMenuItemAgregar.setText("Agregar");
-        jMenuPrincipal.add(jMenuItemAgregar);
-
-        jMenuItemEditar.setText("Editar / Eliminar");
-        jMenuPrincipal.add(jMenuItemEditar);
-        jMenuPrincipal.add(jSeparator1);
-
-        jMenuItemSalir.setText("Salir");
-        jMenuPrincipal.add(jMenuItemSalir);
-
-        MenuPrincipal.add(jMenuPrincipal);
-
-        setJMenuBar(MenuPrincipal);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -173,8 +201,8 @@ public class JFrameEliminar extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonEditar)
@@ -295,16 +323,9 @@ public class JFrameEliminar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar MenuPrincipal;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonEliminar;
-    private javax.swing.JMenuItem jMenuItemAgregar;
-    private javax.swing.JMenuItem jMenuItemEditar;
-    private javax.swing.JMenuItem jMenuItemListar;
-    private javax.swing.JMenuItem jMenuItemSalir;
-    private javax.swing.JMenu jMenuPrincipal;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

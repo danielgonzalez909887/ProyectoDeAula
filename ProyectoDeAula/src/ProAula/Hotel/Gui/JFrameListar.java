@@ -4,12 +4,14 @@
  */
 package ProAula.Hotel.Gui;
 
-import ProAula.Hotel.Business.Reservas.Queries.GetAllReservasQueryHandler;
+import ProAula.Hotel.Business.Reservas.Queries.GetAll.GetAllReservasQueryHandler;
 import ProAula.Hotel.Business.Reservas.Queries.GetReservaByIdQueryHandler;
 import ProAula.Hotel.Business.Reservas.Queries.GetReservaByIdRequestQuery;
 import ProAula.Hotel.Domain.Model.Reservas;
 import ProAula.Hotel.Domain.Model.Usuario;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -134,15 +136,13 @@ public class JFrameListar extends javax.swing.JFrame {
 
     private void jButtonBuscarXIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarXIdActionPerformed
         try {
-        String textoId = txtListarXId.getText().trim();
-
+            String textoId = txtListarXId.getText().trim();
             if (textoId.isEmpty()) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Ingrese un ID de reserva.");
+                JOptionPane.showMessageDialog(this, "Ingrese un ID de reserva.");
                 return;
             }
 
             int id = Integer.parseInt(textoId);
-
             GetReservaByIdRequestQuery request = new GetReservaByIdRequestQuery(id);
             GetReservaByIdQueryHandler handler = new GetReservaByIdQueryHandler();
             Reservas reserva = handler.handler(request);
@@ -150,12 +150,18 @@ public class JFrameListar extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0); // Limpiar tabla
 
+            SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+
+            String fechaResFmt     = fmt.format(reserva.getFechaReserva());
+            String fechaLlegFmt    = fmt.format(reserva.getFechaLlegada());
+            String fechaSalidaFmt  = fmt.format(reserva.getFechaSalida());
+
             if (reserva.getUsuarios() != null && !reserva.getUsuarios().isEmpty()) {
                 for (Usuario u : reserva.getUsuarios()) {
                     model.addRow(new Object[]{
-                        reserva.getFechaReserva().toString(),
-                        reserva.getFechaLlegada().toString(),
-                        reserva.getFechaSalida().toString(),
+                        fechaResFmt,
+                        fechaLlegFmt,
+                        fechaSalidaFmt,
                         String.valueOf(reserva.getHuespedes()),
                         String.valueOf(reserva.getHabitaciones()),
                         u.getNombres(),
@@ -165,18 +171,18 @@ public class JFrameListar extends javax.swing.JFrame {
                 }
             } else {
                 model.addRow(new Object[]{
-                    reserva.getFechaReserva().toString(),
-                    reserva.getFechaLlegada().toString(),
-                    reserva.getFechaSalida().toString(),
+                    fechaResFmt,
+                    fechaLlegFmt,
+                    fechaSalidaFmt,
                     String.valueOf(reserva.getHuespedes()),
                     String.valueOf(reserva.getHabitaciones()),
                     "N/A", "N/A", "N/A"
                 });
             }
         } catch (NumberFormatException e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "El ID debe ser un número.");
+            JOptionPane.showMessageDialog(this, "El ID debe ser un numero.");
         } catch (Exception ex) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
         }
     }//GEN-LAST:event_jButtonBuscarXIdActionPerformed
 
@@ -190,14 +196,22 @@ public class JFrameListar extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0); // Limpiar tabla antes de agregar nuevos datos
 
+            // Formateamos la fecha a AAAA-MM-DD
+            SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+
             for (Reservas r : reservas) {
+                // Formateamos una sola vez por reserva
+                String fechaResFmt    = fmt.format(r.getFechaReserva());
+                String fechaLlegFmt   = fmt.format(r.getFechaLlegada());
+                String fechaSalidaFmt = fmt.format(r.getFechaSalida());
+
                 List<Usuario> usuarios = r.getUsuarios();
                 if (usuarios != null && !usuarios.isEmpty()) {
                     for (Usuario u : usuarios) {
                         model.addRow(new Object[]{
-                            r.getFechaReserva().toString(),
-                            r.getFechaLlegada().toString(),
-                            r.getFechaSalida().toString(),
+                            fechaResFmt,
+                            fechaLlegFmt,
+                            fechaSalidaFmt,
                             String.valueOf(r.getHuespedes()),
                             String.valueOf(r.getHabitaciones()),
                             u.getNombres(),
@@ -207,9 +221,9 @@ public class JFrameListar extends javax.swing.JFrame {
                     }
                 } else {
                     model.addRow(new Object[]{
-                        r.getFechaReserva().toString(),
-                        r.getFechaLlegada().toString(),
-                        r.getFechaSalida().toString(),
+                        fechaResFmt,
+                        fechaLlegFmt,
+                        fechaSalidaFmt,
                         String.valueOf(r.getHuespedes()),
                         String.valueOf(r.getHabitaciones()),
                         "N/A", // Nombres
@@ -219,7 +233,7 @@ public class JFrameListar extends javax.swing.JFrame {
                 }
             }
         } catch (Exception ex) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
         }
     }//GEN-LAST:event_jButtonListarTodosActionPerformed
 

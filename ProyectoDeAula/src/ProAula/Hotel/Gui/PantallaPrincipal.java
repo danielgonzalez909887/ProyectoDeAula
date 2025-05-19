@@ -52,13 +52,50 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         
         jMenuItemEditar.addActionListener(e -> {
             JFrameEliminar ventana = new JFrameEliminar();
-            ventana.setLocationRelativeTo(this); //Centrar la ventana sobre la principal
+            ventana.setLocationRelativeTo(this);
             ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             ventana.setVisible(true);
         });
         
         jMenuItemSalir.addActionListener(e -> {
             System.exit(0);
+        });
+        
+        //Menu habitaciones
+        jMenuItemListarHabitaciones.addActionListener(e -> {
+            JFrameListarHabitaciones ventana = new JFrameListarHabitaciones();
+            ventana.setLocationRelativeTo(this); //Centrar la ventana sobre la principal
+            ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            ventana.setVisible(true);
+        });
+        
+        jMenuItemAgregarHabitaciones.addActionListener(e -> {
+            JFrameCrearHabitacion ventana = new JFrameCrearHabitacion();
+            ventana.setLocationRelativeTo(this);
+            ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            ventana.setVisible(true);
+        });
+        
+        jMenuItemEditarHabitaciones.addActionListener(e -> {
+            JFrameEliminarHabitaciones ventana = new JFrameEliminarHabitaciones();
+            ventana.setLocationRelativeTo(this);
+            ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            ventana.setVisible(true);
+        });
+        
+        //Menu huesped
+        jMenuItemListarHuesped.addActionListener(e -> {
+            JFrameListarHuesped ventana = new JFrameListarHuesped();
+            ventana.setLocationRelativeTo(this); //Centrar la ventana sobre la principal
+            ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            ventana.setVisible(true);
+        });      
+        
+        jMenuItemAgregarHuesped.addActionListener(e -> {
+            JFrameCrearHuesped ventana = new JFrameCrearHuesped();
+            ventana.setLocationRelativeTo(this);
+            ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            ventana.setVisible(true);
         });
 
     }
@@ -103,6 +140,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jMenuItemEditar = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemSalir = new javax.swing.JMenuItem();
+        jMenuHabitaciones = new javax.swing.JMenu();
+        jMenuItemListarHabitaciones = new javax.swing.JMenuItem();
+        jMenuItemAgregarHabitaciones = new javax.swing.JMenuItem();
+        jMenuItemEditarHabitaciones = new javax.swing.JMenuItem();
+        jMenuHuesped = new javax.swing.JMenu();
+        jMenuItemListarHuesped = new javax.swing.JMenuItem();
+        jMenuItemAgregarHuesped = new javax.swing.JMenuItem();
+        jMenuItemEditarHuesped = new javax.swing.JMenuItem();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -150,6 +195,32 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         MenuPrincipal.add(jMenuPrincipal);
 
+        jMenuHabitaciones.setText("MenuHabitaciones");
+
+        jMenuItemListarHabitaciones.setText("Listar Habitaciones");
+        jMenuHabitaciones.add(jMenuItemListarHabitaciones);
+
+        jMenuItemAgregarHabitaciones.setText("Agregar Habitaciones");
+        jMenuHabitaciones.add(jMenuItemAgregarHabitaciones);
+
+        jMenuItemEditarHabitaciones.setText("Editar / Eliminar Habitaciones");
+        jMenuHabitaciones.add(jMenuItemEditarHabitaciones);
+
+        MenuPrincipal.add(jMenuHabitaciones);
+
+        jMenuHuesped.setText("Menu Huesped");
+
+        jMenuItemListarHuesped.setText("Listar Huesped");
+        jMenuHuesped.add(jMenuItemListarHuesped);
+
+        jMenuItemAgregarHuesped.setText("Agregar Huesped");
+        jMenuHuesped.add(jMenuItemAgregarHuesped);
+
+        jMenuItemEditarHuesped.setText("Editar / Eliminar Huesped");
+        jMenuHuesped.add(jMenuItemEditarHuesped);
+
+        MenuPrincipal.add(jMenuHuesped);
+
         setJMenuBar(MenuPrincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -175,9 +246,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addComponent(txtFechaLlegada)
                     .addComponent(txtFechaReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFechaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jSpinnerHabitaciones, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                        .addComponent(jSpinnerHuespedes, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addComponent(jSpinnerHabitaciones)
+                    .addComponent(jSpinnerHuespedes))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(58, 58, 58))
@@ -242,6 +312,26 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             fechaLlegada = df.parse(txtFechaLlegada.getText().trim());
             fechaSalida  = df.parse(txtFechaSalida.getText().trim());
         } catch (java.text.ParseException pe) {
+            return;
+        }
+        
+        // Validar que la fechaLlegada no sea mayor a la fechaSalida
+        if (fechaLlegada.after(fechaSalida)) {
+            JOptionPane.showMessageDialog(this,
+                "La fecha de llegada (" + df.format(fechaLlegada) + 
+                ") no puede ser superior a la fecha de salida (" + df.format(fechaSalida) + ").",
+                "Error de Fechas",
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validar que fechaReserva no sea mayor a la fechaLlegada
+        if (fechaReserva.after(fechaLlegada)) {
+            JOptionPane.showMessageDialog(this,
+                "La fecha de reserva (" + df.format(fechaReserva) + 
+                ") no puede ser superior a la fecha de llegada (" + df.format(fechaLlegada) + ").",
+                "Error de Fechas",
+                JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -345,9 +435,17 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JMenu jMenuHabitaciones;
+    private javax.swing.JMenu jMenuHuesped;
     private javax.swing.JMenuItem jMenuItemAgregar;
+    private javax.swing.JMenuItem jMenuItemAgregarHabitaciones;
+    private javax.swing.JMenuItem jMenuItemAgregarHuesped;
     private javax.swing.JMenuItem jMenuItemEditar;
+    private javax.swing.JMenuItem jMenuItemEditarHabitaciones;
+    private javax.swing.JMenuItem jMenuItemEditarHuesped;
     private javax.swing.JMenuItem jMenuItemListar;
+    private javax.swing.JMenuItem jMenuItemListarHabitaciones;
+    private javax.swing.JMenuItem jMenuItemListarHuesped;
     private javax.swing.JMenuItem jMenuItemSalir;
     private javax.swing.JMenu jMenuPrincipal;
     private javax.swing.JPopupMenu.Separator jSeparator1;

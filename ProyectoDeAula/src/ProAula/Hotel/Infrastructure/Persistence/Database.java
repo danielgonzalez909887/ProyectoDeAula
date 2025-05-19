@@ -4,6 +4,8 @@
  */
 package ProAula.Hotel.Infrastructure.Persistence;
 
+import ProAula.Hotel.Domain.Model.Habitaciones;
+import ProAula.Hotel.Domain.Model.Huesped;
 import ProAula.Hotel.Domain.Model.Reservas;
 import java.util.List;
 import java.util.ArrayList;
@@ -15,6 +17,8 @@ import java.util.ArrayList;
 public class Database {
     
     public List<Reservas> reservasBd;
+    public List<Habitaciones> habitacionesBd;   //Nueva lista para las habitaciones
+    public List<Huesped> huespedBd;
     
     private static Database instancia;
     
@@ -24,6 +28,12 @@ public class Database {
         if(reservasBd == null || reservasBd.isEmpty()){
             //Si es asi, inicializa la lista con una nueva instancia de ArrayList para que se pueda utilizar
             reservasBd = new ArrayList<>();
+        }
+        if (habitacionesBd == null || habitacionesBd.isEmpty()) {
+            habitacionesBd = new ArrayList<>();
+        }
+        if (huespedBd == null || huespedBd.isEmpty()) {
+            huespedBd = new ArrayList<>();
         }
     }
     

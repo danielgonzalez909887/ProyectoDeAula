@@ -24,16 +24,15 @@ public class Reservas {
     private int habitaciones;
     private List<Usuario> usuarios;
     private static AtomicInteger incremento;
-
-    //public Reservas(String nombre) {
+    
+    /**
+     * Constructor por defecto que asigna un id autoincrementable
+     */
     public Reservas() {
         if(incremento == null){
             incremento = new AtomicInteger(1);
         }
-        //Asignamos un id unico a la reserva utilizando el contador atomico
         this.id = incremento.getAndIncrement();
-        //Inicializamos la lista de usuarios
-        //this.usuarios = new ArrayList<>();
     }
     
     public int getId() {

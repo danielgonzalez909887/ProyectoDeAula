@@ -48,6 +48,50 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenuHabitaciones">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="MenuHabitaciones"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemListarHabitaciones">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Listar Habitaciones"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAgregarHabitaciones">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Agregar Habitaciones"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemEditarHabitaciones">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Editar / Eliminar Habitaciones"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenuHuesped">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Menu Huesped"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemListarHuesped">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Listar Huesped"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAgregarHuesped">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Agregar Huesped"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemEditarHuesped">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Editar / Eliminar Huesped"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
       </SubComponents>
     </Menu>
   </NonVisualComponents>
@@ -94,10 +138,8 @@
                   <Component id="txtFechaLlegada" max="32767" attributes="0"/>
                   <Component id="txtFechaReserva" min="-2" pref="157" max="-2" attributes="0"/>
                   <Component id="txtFechaSalida" min="-2" pref="157" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jSpinnerHabitaciones" alignment="0" pref="100" max="32767" attributes="0"/>
-                      <Component id="jSpinnerHuespedes" alignment="0" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="jSpinnerHabitaciones" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jSpinnerHuespedes" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="label1" min="-2" pref="163" max="-2" attributes="0"/>
