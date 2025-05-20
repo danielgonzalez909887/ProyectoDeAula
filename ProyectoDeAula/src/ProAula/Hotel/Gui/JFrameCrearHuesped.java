@@ -4,9 +4,9 @@
  */
 package ProAula.Hotel.Gui;
 
-import ProAula.Hotel.Business.Reservas.Command.Create.Huesped.CreateHuespedCommand;
-import ProAula.Hotel.Business.Reservas.Command.Create.Huesped.CreateHuespedCommandHandler;
-import ProAula.Hotel.Business.Reservas.Command.Create.Huesped.ICreateHuespedCommand;
+import ProAula.Hotel.Business.Huesped.Command.Create.CreateHuespedCommand;
+import ProAula.Hotel.Business.Huesped.Command.Create.CreateHuespedCommandHandler;
+import ProAula.Hotel.Business.Huesped.Command.Create.ICreateHuespedCommand;
 import ProAula.Hotel.Domain.Model.Huesped;
 import java.text.SimpleDateFormat;
 import java.util.Date;

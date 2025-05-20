@@ -4,9 +4,9 @@
  */
 package ProAula.Hotel.Gui;
 
-import ProAula.Hotel.Business.Reservas.Command.CreateReservaCommand;
-import ProAula.Hotel.Business.Reservas.Command.CreateReservaCommandHandler;
-import ProAula.Hotel.Business.Reservas.Command.ICreateReservaCommand;
+import ProAula.Hotel.Business.Reservas.Command.Create.CreateReservaCommand;
+import ProAula.Hotel.Business.Reservas.Command.Create.CreateReservaCommandHandler;
+import ProAula.Hotel.Business.Reservas.Command.Create.ICreateReservaCommand;
 import ProAula.Hotel.Domain.Model.Reservas;
 import ProAula.Hotel.Domain.Model.Usuario;
 import ProAula.Hotel.Gui.JFrameListar;

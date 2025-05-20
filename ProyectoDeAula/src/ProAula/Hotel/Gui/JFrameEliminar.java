@@ -4,9 +4,9 @@
  */
 package ProAula.Hotel.Gui;
 
-import ProAula.Hotel.Business.Reservas.Command.DeleteReservaCommand;
-import ProAula.Hotel.Business.Reservas.Command.DeleteReservaCommandHandler;
-import ProAula.Hotel.Business.Reservas.Command.IDeleteReservaCommand;
+import ProAula.Hotel.Business.Reservas.Command.Delete.DeleteReservaCommand;
+import ProAula.Hotel.Business.Reservas.Command.Delete.DeleteReservaCommandHandler;
+import ProAula.Hotel.Business.Reservas.Command.Delete.IDeleteReservaCommand;
 import ProAula.Hotel.Business.Reservas.Queries.GetAll.GetAllReservasQueryHandler;
 import ProAula.Hotel.Domain.Model.Reservas;
 import ProAula.Hotel.Domain.Model.Usuario;

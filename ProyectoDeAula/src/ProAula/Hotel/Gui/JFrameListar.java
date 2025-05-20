@@ -5,8 +5,8 @@
 package ProAula.Hotel.Gui;
 
 import ProAula.Hotel.Business.Reservas.Queries.GetAll.GetAllReservasQueryHandler;
-import ProAula.Hotel.Business.Reservas.Queries.GetReservaByIdQueryHandler;
-import ProAula.Hotel.Business.Reservas.Queries.GetReservaByIdRequestQuery;
+import ProAula.Hotel.Business.Reservas.Queries.GetById.GetReservaByIdQueryHandler;
+import ProAula.Hotel.Business.Reservas.Queries.GetById.GetReservaByIdRequestQuery;
 import ProAula.Hotel.Domain.Model.Reservas;
 import ProAula.Hotel.Domain.Model.Usuario;
 import java.text.SimpleDateFormat;

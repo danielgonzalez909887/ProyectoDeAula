@@ -4,9 +4,9 @@
  */
 package ProAula.Hotel.Gui;
 
-import ProAula.Hotel.Business.Reservas.Queries.GetAllHabitacionesQueryHandler;
-import ProAula.Hotel.Business.Reservas.Queries.GetHabitacionByIdentificacionQueryHandler;
-import ProAula.Hotel.Business.Reservas.Queries.GetHabitacionByIdentificacionRequestQuery;
+import ProAula.Hotel.Business.Habitaciones.Queries.GetAll.GetAllHabitacionesQueryHandler;
+import ProAula.Hotel.Business.Habitaciones.Queries.GetById.GetHabitacionByIdentificacionQueryHandler;
+import ProAula.Hotel.Business.Habitaciones.Queries.GetById.GetHabitacionByIdentificacionRequestQuery;
 import ProAula.Hotel.Domain.Model.Habitaciones;
 import java.util.List;
 import javax.swing.JOptionPane;

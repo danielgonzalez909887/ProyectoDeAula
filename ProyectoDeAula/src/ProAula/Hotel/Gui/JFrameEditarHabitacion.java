@@ -4,12 +4,12 @@
  */
 package ProAula.Hotel.Gui;
 
-import ProAula.Hotel.Business.Reservas.Command.CreateHabitacionCommand;
-import ProAula.Hotel.Business.Reservas.Command.CreateHabitacionCommandHandler;
-import ProAula.Hotel.Business.Reservas.Command.ICreateHabitacionCommand;
-import ProAula.Hotel.Business.Reservas.Command.IUpdateHabitacionCommand;
-import ProAula.Hotel.Business.Reservas.Command.UpdateHabitacionCommand;
-import ProAula.Hotel.Business.Reservas.Command.UpdateHabitacionCommandHandler;
+import ProAula.Hotel.Business.Habitaciones.Command.Create.CreateHabitacionCommand;
+import ProAula.Hotel.Business.Habitaciones.Command.Create.CreateHabitacionCommandHandler;
+import ProAula.Hotel.Business.Habitaciones.Command.Create.ICreateHabitacionCommand;
+import ProAula.Hotel.Business.Habitaciones.Command.Update.IUpdateHabitacionCommand;
+import ProAula.Hotel.Business.Habitaciones.Command.Update.UpdateHabitacionCommand;
+import ProAula.Hotel.Business.Habitaciones.Command.Update.UpdateHabitacionCommandHandler;
 import ProAula.Hotel.Domain.Model.Habitaciones;
 import javax.swing.JOptionPane;
 

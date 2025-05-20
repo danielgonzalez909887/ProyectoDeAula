@@ -4,9 +4,9 @@
  */
 package ProAula.Hotel.Gui;
 
-import ProAula.Hotel.Business.Reservas.Queries.GetAll.Husped.GetAllHuespedQueryHandler;
-import ProAula.Hotel.Business.Reservas.Queries.GetById.Huesped.GetHuespedByIdentificacionQueryHandler;
-import ProAula.Hotel.Business.Reservas.Queries.GetById.Huesped.GetHuespedByIdentificacionRequestQuery;
+import ProAula.Hotel.Business.Huesped.Queries.GetAll.GetAllHuespedQueryHandler;
+import ProAula.Hotel.Business.Huesped.Queries.GetById.GetHuespedByIdentificacionQueryHandler;
+import ProAula.Hotel.Business.Huesped.Queries.GetById.GetHuespedByIdentificacionRequestQuery;
 import ProAula.Hotel.Domain.Model.Huesped;
 import java.text.SimpleDateFormat;
 import java.util.List;

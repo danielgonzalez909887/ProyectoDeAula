@@ -4,8 +4,8 @@
  */
 package ProAula.Hotel.Gui;
 
-import ProAula.Hotel.Business.Reservas.Command.UpdateReservaCommand;
-import ProAula.Hotel.Business.Reservas.Command.UpdateReservaCommandHandler;
+import ProAula.Hotel.Business.Reservas.Command.Update.UpdateReservaCommand;
+import ProAula.Hotel.Business.Reservas.Command.Update.UpdateReservaCommandHandler;
 import ProAula.Hotel.Domain.Model.Usuario;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -4,10 +4,10 @@
  */
 package ProAula.Hotel.Gui;
 
-import ProAula.Hotel.Business.Reservas.Command.DeleteHabitacionCommand;
-import ProAula.Hotel.Business.Reservas.Command.DeleteHabitacionCommandHandler;
-import ProAula.Hotel.Business.Reservas.Command.IDeleteHabitacionCommand;
-import ProAula.Hotel.Business.Reservas.Queries.GetAllHabitacionesQueryHandler;
+import ProAula.Hotel.Business.Habitaciones.Command.Delete.DeleteHabitacionCommand;
+import ProAula.Hotel.Business.Habitaciones.Command.Delete.DeleteHabitacionCommandHandler;
+import ProAula.Hotel.Business.Habitaciones.Command.Delete.IDeleteHabitacionCommand;
+import ProAula.Hotel.Business.Habitaciones.Queries.GetAll.GetAllHabitacionesQueryHandler;
 import ProAula.Hotel.Domain.Model.Habitaciones;
 import java.util.ArrayList;
 import java.util.List;
