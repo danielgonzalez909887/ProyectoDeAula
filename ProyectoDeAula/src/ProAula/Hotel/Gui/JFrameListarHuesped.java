@@ -148,9 +148,9 @@ public class JFrameListarHuesped extends javax.swing.JFrame {
                 String fechaFmt = fmt.format(h.getFechaNacimientoHuesped());
 
                 model.addRow(new Object[]{
-                    h.getIdentificacionHuespedAcompa(),
                     h.getNombresHuesped(),
                     h.getApellidosHuesped(),
+                    h.getIdentificacionHuespedAcompa(),
                     fechaFmt,
                     h.getGeneroHuesped(),
                     h.getEmailHuesped()

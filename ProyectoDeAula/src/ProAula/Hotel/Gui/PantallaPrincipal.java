@@ -97,6 +97,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             ventana.setVisible(true);
         });
+        
+        jMenuItemEditarHuesped.addActionListener(e -> {
+            JFrameEliminarHuesped ventana = new JFrameEliminarHuesped();
+            ventana.setLocationRelativeTo(this);
+            ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            ventana.setVisible(true);
+        });  
 
     }
     
